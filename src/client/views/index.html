@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Travel Planner</title>
     </head>
 
@@ -17,19 +17,44 @@
         </header>
 
         <main>
-            <section class="container">
-                <form class="" id="form">
-                    <input id="city" class="city" type="text" name="city" value="" placeholder="Enter city eg New York" aria-label="Enter a city name">
-                    <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date eg Y-m-d" aria-label="Pick a date">
-                    <Button type="submit" name="submit" id="submit" value="submit" aria-label="Submit">Submit</button>
-                </form>
             <section>
+                <form class="" id="form">
+                  <div class="container">
+                    <div class="formGroup">
+                      <label for="">My Trip To </label>
+                      <input id="city" class="city" type="text" name="city" value="" placeholder="Enter city eg New York" aria-label="Enter a city name">
+                    </div>
+                    <div class="formGroup">
+                      <label for="">Departing</label>
+                      <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date eg Y-m-d" aria-label="Pick a date">
+                      <Button type="submit" name="submit" id="submit" value="submit" aria-label="Submit">Submit</button>
+                      </div>
+                    </div>
+                </form>
+              </section>
 
-            <section class="container">
+            <section class="tripinfoBG">
+              <div class="container">
                 <div class="tripInfoContainer">
-                  <div class="cityPictureContainer">City image goess here</div>
-                  <div class="tripDetailContainer">Trip detail goes here</div>
+                  <div class="cityPictureContainer">
+                    <img class="cityPicture" id="cityPicture">
+                  </div>
+                  <div class="tripDetailContainer">
+                    <div class="location heading">My trip to: <span id="tripLocation">Paris, France</span></div>
+                    <div class="departureDate heading">Departing: <span id="tripDepartureDate">02/12/2020</span></div>
+                    <div class="actionButtonContainer">
+                      <button type="button" class="saveTrip" id="saveTrip" name="saveTrip" aria-label="Save trip">save trip</button>
+                      <button type="button" class="removeTrip" id="removeTrip" name="removeTrip" aria-label="Remove trip">remove trip</button>
+                    </div>
+                    <div class="tripLoc2Container"> <span id="tripLocation2">Paris France</span> is <span is="duration">5 days </span> away</div>
+                    <div class="weatherInfoContainer">
+                      <div class="subHeading">Typical weather for then is:</div>
+                      <div class="temp">High - <span id="highTemp">35</span> Low - <span id="lowTemp">35</span></div>
+                      <div id="additionalWeatherInfo">Mostly cloudy throughout the day</div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </section>
         </main>
         <footer>

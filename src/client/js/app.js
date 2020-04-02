@@ -2,6 +2,8 @@ import flatpickr from "flatpickr";
 /* Global Variables */
 const geonameBaseUrl = "http://api.geonames.org/searchJSON?name_equals=";
 const geonameUser = "onwukweb";
+const weatherbitAPIKey = "a959d468804d4901aa8ee5e1a731cad0";
+const weatherbitBaseUrl = "https://api.weatherbit.io/v2.0/history/daily?lat=38.123&lon=-78.543&start_date=2020-03-29&end_date=2020-03-30&start_date=2020-03-29&end_date=2020-03-30&key=API_KEY"
 
 const projectData = {};
 

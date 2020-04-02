@@ -1,35 +1,89 @@
 #form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  background-color: #17181a17;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  .formGroup {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     align-items: center;
+    vertical-align: middle;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3a3939;
+
+    label {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+
+  input.city {
+    width: 100%;
+  }
+
+  input {
+    padding: 10px 20px;
+    line-height: 16px;
+    height: 38px;
+    border: 1px solid #a2a2a3;
+  }
+  input.date {
+    width: 100%;
+  }
+
+  #submit {
+    padding: 10px 20px;
+    width: 100px;
+    line-height: 16px;
+    margin: 0;
+    margin: 20px 0;
+    background-color: #3845b8;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    cursor: pointer;
+    justify-self: right;
+
+    &:hover {
+      background-color: #c1c1c5;
+      color: #000000;
+    }
+  }
+}
+
+@media screen and (min-width: 767.99px) {
+  #form {
+    padding-top: 20px;
+
+    .formGroup {
+      label {
+        width: 120px;
+        margin-right: 15px;
+        margin-top: 0;
+      }
+    }
 
     input.city {
-        flex:1;
+      width: 100%;
+      max-width: 600px;
     }
 
     input {
-        padding: 10px 20px;
-        line-height: 16px;
-        margin-right: 10px;
-        height: 38px;
-        border: 1px solid #a2a2a3;
+      padding: 10px 20px;
+      line-height: 16px;
+      height: 38px;
+      border: 1px solid #a2a2a3;
     }
     input.date {
-        width:220px;
+      width: 100%;
+      max-width: 300px;
+      margin-right: 10px;
     }
-    
-    #submit {
-        padding: 10px 20px;
-        width: 100px;
-        line-height: 16px;
-        margin: 0;
-        margin: 10px 0;
-        background-color: #3845b8;
-        border: none;
-        outline: none;
-        color: #ffffff;
-        cursor: pointer;
-        justify-self: right;
-    }
+  }
 }
