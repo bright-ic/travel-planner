@@ -2,29 +2,34 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Travel App</title>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+        <title>Travel Planner</title>
     </head>
 
     <body>
 
         <header>
-            <nav><button class="btnLink aboutLink">About</button></nav>
+            <div class="container">
+                <div class="appTitle">
+                    Travel Planner
+                </div>
+            </div>
         </header>
 
         <main>
-            <div class="appTitle">
-                TRAVEL APP
-            </div>
-            <section>
+            <section class="container">
                 <form class="" id="form">
-                    <input id="city" type="text" name="city" value="" placeholder="Enter city eg New York" aria-label="Enter a city name">
+                    <input id="city" class="city" type="text" name="city" value="" placeholder="Enter city eg New York" aria-label="Enter a city name">
+                    <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date eg Y-m-d" aria-label="Pick a date">
                     <Button type="submit" name="submit" id="submit" value="submit" aria-label="Submit">Submit</button>
                 </form>
             <section>
 
-            <section>
-                <strong>Results:</strong>
-                <div id="results"></div>
+            <section class="container">
+                <div class="tripInfoContainer">
+                  <div class="cityPictureContainer">City image goess here</div>
+                  <div class="tripDetailContainer">Trip detail goes here</div>
+                </div>
             </section>
         </main>
         <footer>
