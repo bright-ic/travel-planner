@@ -4,50 +4,23 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    font-family: "Arial Narrow Bold", Helvetica, sans-serif;
+    background-color: rgb(237, 241, 244);
 }
 
 main {
     flex: 2;
 }
-
-section {
-    max-width: 800px;
-    margin: 50px auto;
-}
-
-.popularity, .subjectivity, .text {
-    padding-top: 15px;
-    font-size: 16px;
-    font-family: Helvetica, sans-serif;
-}
-
-.label {
-    font-weight: bold;
-}
-.text {
-    line-height: 21px;
-}
-#results {
-    height: 80%;
-}
-
 .appTitle {
-    font-size: 28px;
+    font-size: 40px;
     font-weight: bold;
-    text-align: center;
-    padding-top: 45px;
+    text-align: left;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.btnLink {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #ffffff;
-    font-size: 18px;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-bottom: 10px;
-    padding-right: 15px;
-    cursor: pointer;
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 15px;
 }

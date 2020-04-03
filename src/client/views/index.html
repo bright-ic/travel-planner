@@ -2,29 +2,40 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Travel App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Travel Planner</title>
     </head>
 
     <body>
 
         <header>
-            <nav><button class="btnLink aboutLink">About</button></nav>
+            <div class="container">
+                <div class="appTitle">
+                    Travel Planner
+                </div>
+            </div>
         </header>
 
         <main>
-            <div class="appTitle">
-                TRAVEL APP
-            </div>
             <section>
-                <form class="" id="form">
-                    <input id="city" type="text" name="city" value="" placeholder="Enter city eg New York" aria-label="Enter a city name">
-                    <Button type="submit" name="submit" id="submit" value="submit" aria-label="Submit">Submit</button>
+                <form id="searchForm">
+                  <div class="container">
+                    <div class="formGroup">
+                      <label for="">My Trip To </label>
+                      <input id="city" class="city" type="text" name="city" value="" placeholder="Enter city eg New York" aria-label="Enter a city name">
+                    </div>
+                    <div class="formGroup">
+                      <label for="">Departing</label>
+                      <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date eg Y-m-d" aria-label="Pick a date">
+                      <Button type="submit" name="submit" id="searchButton" value="Go" aria-label="Submit">Go</button>
+                      </div>
+                    </div>
                 </form>
-            <section>
+              </section>
 
-            <section>
-                <strong>Results:</strong>
-                <div id="results"></div>
+            <section class="tripinfoBG">
+              <div class="container" id="pageContent">
+              </div>
             </section>
         </main>
         <footer>
