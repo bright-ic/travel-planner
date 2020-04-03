@@ -18,7 +18,7 @@
 
         <main>
             <section>
-                <form class="" id="form">
+                <form id="searchForm">
                   <div class="container">
                     <div class="formGroup">
                       <label for="">My Trip To </label>
@@ -27,33 +27,14 @@
                     <div class="formGroup">
                       <label for="">Departing</label>
                       <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date eg Y-m-d" aria-label="Pick a date">
-                      <Button type="submit" name="submit" id="submit" value="submit" aria-label="Submit">Submit</button>
+                      <Button type="submit" name="submit" id="searchButton" value="Go" aria-label="Submit">Go</button>
                       </div>
                     </div>
                 </form>
               </section>
 
             <section class="tripinfoBG">
-              <div class="container">
-                <div class="tripInfoContainer">
-                  <div class="cityPictureContainer">
-                    <img class="cityPicture" id="cityPicture">
-                  </div>
-                  <div class="tripDetailContainer">
-                    <div class="location heading">My trip to: <span id="tripLocation">Paris, France</span></div>
-                    <div class="departureDate heading">Departing: <span id="tripDepartureDate">02/12/2020</span></div>
-                    <div class="actionButtonContainer">
-                      <button type="button" class="saveTrip" id="saveTrip" name="saveTrip" aria-label="Save trip">save trip</button>
-                      <button type="button" class="removeTrip" id="removeTrip" name="removeTrip" aria-label="Remove trip">remove trip</button>
-                    </div>
-                    <div class="tripLoc2Container"> <span id="tripLocation2">Paris France</span> is <span is="duration">5 days </span> away</div>
-                    <div class="weatherInfoContainer">
-                      <div class="subHeading">Typical weather for then is:</div>
-                      <div class="temp">High - <span id="highTemp">35</span> Low - <span id="lowTemp">35</span></div>
-                      <div id="additionalWeatherInfo">Mostly cloudy throughout the day</div>
-                    </div>
-                  </div>
-                </div>
+              <div class="container" id="pageContent">
               </div>
             </section>
         </main>

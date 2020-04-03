@@ -1,4 +1,4 @@
-#form {
+#searchForm {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -37,9 +37,8 @@
     width: 100%;
   }
 
-  #submit {
+  #searchButton {
     padding: 10px 20px;
-    width: 100px;
     line-height: 16px;
     margin: 0;
     margin: 20px 0;
@@ -58,7 +57,7 @@
 }
 
 @media screen and (min-width: 767.99px) {
-  #form {
+  #searchForm {
     padding-top: 20px;
 
     .formGroup {

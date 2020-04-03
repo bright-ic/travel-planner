@@ -18,7 +18,6 @@ section.tripinfoBG {
       img {
         width: 100%;
         height: auto;
-        border-radius: 10px;
       }
     }
   
@@ -71,6 +70,7 @@ section.tripinfoBG {
       .tripLoc2Container {
         padding-top: 25px;
         font-size: 18px;
+        color: #3845b8;
       }
 
       .weatherInfoContainer {
@@ -83,6 +83,22 @@ section.tripinfoBG {
           color: #3a3939;
           font-family: "Arial Narrow Bold", Helvetica, sans-serif;
           line-height: 38px;
+        }
+      }
+      
+      .tripDurationContainer {
+        font-size: 16px;
+        line-height: 28px;
+        .subHeading {
+          font-size: 23px;
+          color: #3a3939;
+          font-family: "Arial Narrow Bold", Helvetica, sans-serif;
+          line-height: 38px;
+        }
+        .returnPeriod {
+          margin-top: 18px;
+          font-size: 16px;
+          font-weight: bold;
         }
       }
     }
