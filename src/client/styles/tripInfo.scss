@@ -5,6 +5,37 @@ section.tripinfoBG {
   padding-top: 25px;
   padding-bottom: 25px;
 
+  #tripspageContainer > div {
+    border-bottom: 1px solid #888585;
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+
+  .addPlanButtonContainer {
+    position: relative;
+    padding:0;
+    margin: 0;
+    a {
+      text-decoration: none;
+      padding: 10px 20px;
+      line-height: 16px;
+      margin: 0;
+      margin-right: 15px;
+      background-color: #3845b8;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      cursor: pointer;
+      float: right;
+      border-radius: 15px;
+
+      &:hover {
+        background-color: #c1c1c5;
+        color: #000000;
+      }
+    }
+  }
+
   .tripInfoContainer {
     display: flex;
     flex-wrap: wrap;
