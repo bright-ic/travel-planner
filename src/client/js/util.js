@@ -1,4 +1,3 @@
-import {getDataInStorage} from "./storage";
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 // Helper function that gets number of days to users departure date
 export const getDatesDifferenceInDays = (startDate, endDate) => {
@@ -15,7 +14,7 @@ export const getTodaysDate = () => {
   return today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-export const getTripDate = (tdate) => {
+export const getTripDate = (tdate, getDuration) => {
   const trip = { travelDate: "", returnDate: "", duration: "" };
   if (tdate === "") {
     return null;
@@ -26,11 +25,7 @@ export const getTripDate = (tdate) => {
     const datesArr = tdate.split(" ");
     trip.travelDate = datesArr[0];
     trip.returnDate = datesArr[2];
-    trip.duration = getDatesDifferenceInDays(trip.travelDate, trip.returnDate); // get travel duration
+    trip.duration = getDuration(trip.travelDate, trip.returnDate); // get travel duration
   }
   return trip;
-}
-
-export const getTripPlansInStorage = () => {
-  return getDataInStorage("travelPlan");
 }
