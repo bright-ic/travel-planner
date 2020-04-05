@@ -1,4 +1,6 @@
-import { handleSubmit } from './js/app';
+import { handleSubmit, projectData } from './js/app';
+import { removeTravelPlan} from "./js/storage";
+import {updateUiWithTravelInfo} from "./js/DOM";
 import "./styles/resets.scss";
 import "./styles/base.scss";
 import "./styles/footer.scss";
@@ -34,5 +36,6 @@ document.querySelector("#searchForm").addEventListener("submit", function (event
 });
 
 export {
-  handleSubmit
+  handleSubmit,
+  projectData
 }
