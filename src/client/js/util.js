@@ -1,3 +1,4 @@
+import {getDataInStorage} from "./storage";
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 // Helper function that gets number of days to users departure date
 export const getDatesDifferenceInDays = (startDate, endDate) => {
@@ -28,4 +29,8 @@ export const getTripDate = (tdate) => {
     trip.duration = getDatesDifferenceInDays(trip.travelDate, trip.returnDate); // get travel duration
   }
   return trip;
+}
+
+export const getTripPlansInStorage = () => {
+  return getDataInStorage("travelPlan");
 }

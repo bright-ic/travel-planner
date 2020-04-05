@@ -1,6 +1,7 @@
 import flatpickr from "flatpickr";
 import {getDatesDifferenceInDays, getTripDate, getTodaysDate} from "./util";
 import {updateUiWithTravelInfo} from "./DOM";
+import noCityPicture from "../media/cloud.jpg";
 /* Global Variables */
 const geonameBaseUrl = "http://api.geonames.org/searchJSON?name_equals=";
 const geonameUser = "onwukweb";
@@ -8,11 +9,12 @@ const weatherbitAPIKey = "a959d468804d4901aa8ee5e1a731cad0";
 const weatherbitBaseUrl = "https://api.weatherbit.io/v2.0/forecast/daily/";
 const pixabayAPIKey = "15874403-07fd84fc7635618793667fd9a";
 const pixabayBaseUrl = "https://pixabay.com/api/";
-import noCityPicture from "../media/cloud.jpg";
 
 export const projectData = {
   travelPlans: {}
 };
+
+let isSubmitting = false;
 
 // helper function that searches for city using geoname api
 const getCityLocation = async (url) => {
@@ -94,7 +96,7 @@ const getPhotoOfCity = async (baseUrl, key, city, country) => {
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 // helper function that handles form submission
-export const handleSubmit = async (city, date) => {
+const handleSubmit = async (city, date) => {
   try {
     if (city === "") {
       throw new Error("Please enter city name");
@@ -149,20 +151,15 @@ export const handleSubmit = async (city, date) => {
       weather: {
         high_temp: dayOfDepartureWeather.high_temp,
         low_temp: dayOfDepartureWeather.low_temp,
-        decription: dayOfDepartureWeather.weather.description
+        description: dayOfDepartureWeather.weather.description
       }
     }
 
     //add the new travel plan to the project data;
+    projectData.travelPlans = {};
     projectData.travelPlans[plan.id] = plan;
 
-    updateUiWithTravelInfo(projectData.travelPlans);
-
-    // console.log("trip dates", tripDate);
-    // console.log("City location, ", cityLocation);
-    // console.log("weather data,", weatherData);
-    // console.log("Your departure day is due in: " + travelDepartureDayCount);
-    // console.log("photos of city, ", photoOfCityData);
+    updateUiWithTravelInfo(projectData.travelPlans, "pageContent");
     return;
   }
   catch (err) {
@@ -171,3 +168,25 @@ export const handleSubmit = async (city, date) => {
   }
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+export const submitHandler = (event) => {
+    event.preventDefault();
+    // ensure that multiple form submission is avoided
+    if(isSubmitting) {
+        return false;
+    }
+    isSubmitting = true;
+    const city = document.getElementById("city").value;
+    let date = document.getElementById("startDate").value;
+    let searchButton = document.getElementById("searchButton");
+    searchButton.textContent = "processing...";
+    handleSubmit(city, date)
+    .then(() => {
+      isSubmitting = false;
+      searchButton.textContent = "Go";
+    })
+    .catch(() => {
+      isSubmitting = false;
+      searchButton.textContent = "Go";
+    })
+    return false;
+}

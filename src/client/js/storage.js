@@ -1,4 +1,4 @@
-import {addActionButtonToDOM} from "./DOM";
+import {addActionButtonToDOM, removeElementFromDOM} from "./DOM";
 
 export const saveTravelPlan = (evt) => {
   const target = evt.target;
@@ -21,6 +21,7 @@ export const saveTravelPlan = (evt) => {
 export const removeTravelPlan = (evt) => {
   const target = evt.target;
   const planID = target.dataset.id;
+  const source = target.dataset.source;
   if(planID == "undefined" || typeof planID === "undefined" || planID == "") {
     alert("Sorry! Something went wrong while trying to process your request.");
     return;
@@ -45,6 +46,9 @@ export const removeTravelPlan = (evt) => {
     // add save trip button to the ui and remove "remove trip" button from the ui
     addActionButtonToDOM(target, "saveTrip", saveTravelPlan, "save trip", planID);
     alert("Removed successfully!");
+    if(source === "travel-plan-list") {
+      removeElementFromDOM(planID);
+    }
   }
   catch (err) {
     alert(err.message);
@@ -74,7 +78,7 @@ const addItemToStorage = (plan) => {
   }
 }
 
-const getDataInStorage = (key) => {
+export const getDataInStorage = (key) => {
   let data = localStorage.getItem(key);
   if(data === null) {
     data = null;
