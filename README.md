@@ -3,7 +3,7 @@
 ## Overview
 This project is a web app that is built on node js and express server.
 The project is designed to help users plan their travel/trips in such a way that the user supplies
-the the app with the city they plan to travel to and the date they plan to travel and/or return and the app will automatically provide the user with information of about the weather forcast for that day (ie their travel date) (even if it's in the future) as well as the picture of the city they are traveling to.
+the the app with the city they plan to travel to and the date they plan to travel and/or return and the app will automatically provide the user with information of about the weather forcast for that day (ie their travel date) (even if it's in the future) as well as the picture of the city they are traveling to and much more.
 
 ## Instructions/Usage
 1. clone the project to your local directory eg git clone https://github.com/bright-ic/travel-planner.git
@@ -16,7 +16,7 @@ the the app with the city they plan to travel to and the date they plan to trave
 ## Development Stack
 Javascript, Node js, Express, html, css.
 
-## API USED
+## API Used
 1. Pixabay (https://pixabay.com/api/docs/) - for getting pictures of the city
 2. Weatherbit (https://www.weatherbit.io/account/create) -  for fetching weather forcast
 3. Geonames (http://www.geonames.org/export/web-services.html) -  for fetching the country and location of the city (latitude and longitued: used with weatherbit)

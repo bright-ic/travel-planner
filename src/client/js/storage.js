@@ -1,5 +1,9 @@
 import {addActionButtonToDOM, removeElementFromDOM} from "./DOM";
 
+/**
+ * @description Helper function that initiates the saving of travel plan to local storage
+ * @param {Event} evt - the information of the event triggered
+ */
 export const saveTravelPlan = (evt) => {
   const target = evt.target;
   const planID = target.dataset.id;
@@ -18,6 +22,10 @@ export const saveTravelPlan = (evt) => {
   }
 }
 
+/**
+ * @description Helper function that removes travel plan from localstorage
+ * @param {Event} evt - holds the information of the event triggered and element that triggered it
+ */
 export const removeTravelPlan = (evt) => {
   const target = evt.target;
   const planID = target.dataset.id;
@@ -55,6 +63,11 @@ export const removeTravelPlan = (evt) => {
   }
 }
 
+/**
+ * @description Helper function that adds travel plan to localstorage
+ * @param {object} plan - contains details of the travel plan to add to local storage
+ * @returns {boolean} true on success or false on failure
+ */
 const addItemToStorage = (plan) => {
   if(!window.localStorage) {
     alert("Sorry! We could not process your request. It seems like you are using an old browser");
@@ -78,6 +91,12 @@ const addItemToStorage = (plan) => {
   }
 }
 
+/**
+ * @description Helper function that retrieves travels plans from localstorage (ie plans that were saved before)
+ * @param {string} key - contains the key of the item to be retrieved from localstorage
+ * @returns {object} on success
+ * @returns {null} on failure
+ */
 export const getDataInStorage = (key) => {
   let data = localStorage.getItem(key);
   if(data === null) {
@@ -90,6 +109,9 @@ export const getDataInStorage = (key) => {
   return data;
 }
 
+/**
+ * @description Helper function that initiates the retrieval of all travel plans stored in localstorage
+ */
 export const getTripPlansInStorage = () => {
   return getDataInStorage("travelPlan");
 }

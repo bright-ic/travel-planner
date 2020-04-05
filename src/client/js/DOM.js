@@ -4,6 +4,12 @@ import homeHTML from "../views/home.html";
 import tripsHTML from "../views/trips.html";
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/** 
+ * @description Helper function that updates ui with travel plans info and weather forcast
+ * @param {object} plans - represents key value pairs of different travel/trip plans data
+ * @param {string} containerElementId - id of the DOM element to append the dynamicclly created elements to
+ * @param {string} from - identifies which part of the code is calling this helper function eg. my trips page or add trip (home page)
+*/
 export const updateUiWithTravelInfo = async (plans = {}, containerElementId = "", from="") => {
   plans = Object.entries(plans);
   if(plans.length === 0) {
@@ -76,7 +82,15 @@ export const updateUiWithTravelInfo = async (plans = {}, containerElementId = ""
   }
 }
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-//helper function that adds either remove trip or save trip buttons to the ui depending on the action performed
+/** 
+ * @description helper function that adds either remove trip or save trip buttons to the ui depending on the action performed
+ * @param {HTMLElement} target - the button element cliecked
+ * @param {string} elclass - class to be assigned to the new created button
+ * @param {function} eventHandler - the handler function to be assigned to the new created button click event
+ * @param {string} text - the text content of the newly created button
+ * @param {string} planID - unique id of the travel plan the target button belongs to
+ }}
+*/
 export const addActionButtonToDOM = (target, elclass, eventHandler, text, planID) => {
   const button = document.createElement("button");
   button.textContent = text;
@@ -87,6 +101,10 @@ export const addActionButtonToDOM = (target, elclass, eventHandler, text, planID
   target.parentNode.removeChild(target);
 }
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/**
+ * @description Helper function that removes DOM element from the DOM
+ * @param {string} elementID - id attribute of the DOM element to be removed.
+ */
 export const removeElementFromDOM = (elementID) => {
   const ele = document.getElementById(elementID);
   if(ele) {
@@ -94,12 +112,20 @@ export const removeElementFromDOM = (elementID) => {
   }
 }
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/**
+ * @description handler function for page links
+ * @param {Event} evt - contains information of the event emitted
+ */
 const pageLoader = (evt) => {
   //evt.preventDefault();
   const targetPage = evt.target.dataset.page;
   loadPage(targetPage);
 }
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/**
+ * @description Hellper function that loads different page depending on the link clicked (target page)
+ * @param {string} targetPage - used to determne the page to load
+ */
 const loadPage = (targetPage) => {
   if(targetPage === "my-trips") {
     document.getElementById("main").innerHTML = tripsHTML;
@@ -114,6 +140,9 @@ const loadPage = (targetPage) => {
   initInteractivity();
 }
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/**
+ * @description Helper function that initializes the flatpickr and add event handler to submit button on each page dynamic laod
+ */
 const initInteractivity = () => {
   if(document.querySelector(".date")) {
     flatpickr(".date", { mode: "range" });
@@ -124,7 +153,11 @@ const initInteractivity = () => {
   }
 }
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-//helper function that adds click event listener to array of HTMLElements
+/**
+ * @description helper function that adds click event listener to array of HTMLElements
+ * @param {HTMLElements} HTMLNodes - array of htmlelement nodes
+ * @param {function} handler - event handler to to be added to the htmlelements click event
+ */
 const addClickEventListener = (HTMLNodes, handler) => {
   for(let node of HTMLNodes) {
     node.addEventListener("click", handler);

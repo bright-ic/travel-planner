@@ -16,7 +16,11 @@ export const projectData = {
 
 let isSubmitting = false;
 
-// helper function that searches for city using geoname api
+/**  
+ * @description helper function that searches for city using geoname api
+ * @param {string} url - url of the geoname api including the api key etc.
+ * @returns {object} city location data
+*/
 const getCityLocation = async (url) => {
   let response = { error: false, message: "", lat: "", lng: "", data: null };
   try {
@@ -34,7 +38,19 @@ const getCityLocation = async (url) => {
   }
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-// helper function that retrieves future weather forcast
+/**  
+ * @description helper function that retrieves future weather forcast
+ * @param {string} baseUrl - base url of the weatherbit api
+ * @param {string} lat - latitude (of the location/position of the city)
+ * @param {string} lng - longitude (of the location/position of the city)
+ * @param {string} startDate - travel departure date
+ * @param {string} endDate - travel return date
+ * @param {string} key - weathebit API key
+ * @param {number} departureDayCount - number of days to departure day/date calculated form current date.
+ * @param {number} tripDuration - the duration of the trip
+ * @returns {object} on success weather forcast data eg {error:false, message:"success", data:{...}, departureDat:number}
+ * @returns {object} on failure  eg {error:true, message:"....", data:null, departureDat:1}
+*/
 const getWeatherForcast = async (baseUrl, lat, lng, startDate, endDate, key, departureDayCount, tripDuration) => {
   let response = { error: false, message: '', data: null, departureDay: 1 };
   try {
@@ -70,7 +86,14 @@ const getWeatherForcast = async (baseUrl, lat, lng, startDate, endDate, key, dep
   }
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-// helper function that retrieves future weather forcast
+/**
+ * @description helper function that fetches the picture of the city/country the user is traveling to using pixabay api
+ * @param {string} baseUrl - base url of pixabay api (required)
+ * @param {string} key - pixabay API key (required)
+ * @param {string} city - city the user is plaining to travel to (required)
+ * @param {string} country - the country the city is located in
+ * @returns {object} photo of the city
+*/
 export const getPhotoOfCity = async (baseUrl, key, city, country) => {
   let response = { error: false, message: '', data: null };
   try {
@@ -95,7 +118,11 @@ export const getPhotoOfCity = async (baseUrl, key, city, country) => {
   }
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-// helper function that handles form submission
+/**
+ * @description helper function that processes form submission
+ * @param {string} city - city the user is traveling to [form field]
+ * @param {string} date - date of departure and/or return date
+*/
 const handleSubmit = async (city, date) => {
   try {
     if (city === "") {
