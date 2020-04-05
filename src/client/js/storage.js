@@ -89,3 +89,7 @@ export const getDataInStorage = (key) => {
 
   return data;
 }
+
+export const getTripPlansInStorage = () => {
+  return getDataInStorage("travelPlan");
+}

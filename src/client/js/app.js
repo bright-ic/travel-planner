@@ -71,7 +71,7 @@ const getWeatherForcast = async (baseUrl, lat, lng, startDate, endDate, key, dep
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 // helper function that retrieves future weather forcast
-const getPhotoOfCity = async (baseUrl, key, city, country) => {
+export const getPhotoOfCity = async (baseUrl, key, city, country) => {
   let response = { error: false, message: '', data: null };
   try {
     let isCountryPhotoSearched = false;
@@ -105,7 +105,7 @@ const handleSubmit = async (city, date) => {
       throw new Error("Pick a travel date");
     }
 
-    let tripDate = getTripDate(date); // get the travel start date and [end return date if a range is selected]
+    let tripDate = getTripDate(date, getDatesDifferenceInDays); // get the travel start date and [end return date if a range is selected]
     let today = getTodaysDate();
     let travelDepartureDayCount = getDatesDifferenceInDays(today, tripDate.travelDate);
     // check if user's departing date is in the past.

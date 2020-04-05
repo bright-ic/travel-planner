@@ -32,6 +32,10 @@
     line-height: 16px;
     height: 38px;
     border: 1px solid #a2a2a3;
+    &:hover {
+      border: 1px solid #3a3939;
+      background-color: transparent;
+    }
   }
   input.date {
     width: 100%;

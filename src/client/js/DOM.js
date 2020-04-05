@@ -1,8 +1,9 @@
-import {getDatesDifferenceInDays, getTodaysDate, getTripPlansInStorage} from "./util";
-import {saveTravelPlan, removeTravelPlan} from "./storage";
+import {getDatesDifferenceInDays, getTodaysDate} from "./util";
+import {saveTravelPlan, removeTravelPlan, getTripPlansInStorage} from "./storage";
 import homeHTML from "../views/home.html";
 import tripsHTML from "../views/trips.html";
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 export const updateUiWithTravelInfo = async (plans = {}, containerElementId = "", from="") => {
   plans = Object.entries(plans);
   if(plans.length === 0) {
@@ -85,19 +86,20 @@ export const addActionButtonToDOM = (target, elclass, eventHandler, text, planID
   target.parentNode.appendChild(button);
   target.parentNode.removeChild(target);
 }
-
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 export const removeElementFromDOM = (elementID) => {
   const ele = document.getElementById(elementID);
   if(ele) {
     ele.remove();
   }
 }
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 const pageLoader = (evt) => {
   //evt.preventDefault();
   const targetPage = evt.target.dataset.page;
   loadPage(targetPage);
 }
-
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 const loadPage = (targetPage) => {
   if(targetPage === "my-trips") {
     document.getElementById("main").innerHTML = tripsHTML;
@@ -111,7 +113,7 @@ const loadPage = (targetPage) => {
   }
   initInteractivity();
 }
-
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 const initInteractivity = () => {
   if(document.querySelector(".date")) {
     flatpickr(".date", { mode: "range" });
