@@ -30,7 +30,7 @@
                     </div>
                     <div class="formGroup">
                       <label for="">Departing</label>
-                      <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date eg Y-m-d" aria-label="Pick a date">
+                      <input id="startDate" class="date" type="text" name="startDate" value="" placeholder="Date - pick date range or double click to select single date" aria-label="Pick a date">
                       <Button type="submit" name="submit" id="searchButton" value="Go" aria-label="Submit">Go</button>
                       </div>
                     </div>
@@ -44,5 +44,15 @@
         <footer>
             <p> Designed by Bright Onwukwe </p>
         </footer>
+
+        <script>
+          // Check that service workers are supported
+          if ('serviceWorker' in navigator) {
+              // Use the window load event to keep the page load performant
+              window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/service-worker.js');
+              });
+          }
+      </script>
     </body>
 </html>
