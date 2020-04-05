@@ -1,4 +1,6 @@
 import flatpickr from "flatpickr";
+import {getDatesDifferenceInDays, getTripDate, getTodaysDate} from "./util";
+import {updateUiWithTravelInfo} from "./DOM";
 /* Global Variables */
 const geonameBaseUrl = "http://api.geonames.org/searchJSON?name_equals=";
 const geonameUser = "onwukweb";
@@ -8,7 +10,9 @@ const pixabayAPIKey = "15874403-07fd84fc7635618793667fd9a";
 const pixabayBaseUrl = "https://pixabay.com/api/";
 import noCityPicture from "../media/cloud.jpg";
 
-const projectData = {};
+export const projectData = {
+  travelPlans: {}
+};
 
 // helper function that searches for city using geoname api
 const getCityLocation = async (url) => {
@@ -65,13 +69,22 @@ const getWeatherForcast = async (baseUrl, lat, lng, startDate, endDate, key, dep
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 // helper function that retrieves future weather forcast
-const getPhotoOfCity = async (baseUrl, key, city) => {
+const getPhotoOfCity = async (baseUrl, key, city, country) => {
   let response = { error: false, message: '', data: null };
   try {
-    const url = `${baseUrl}?key=${key}&image_type=photo&q=${encodeURIComponent(city)}&orientation=vertical`;
+    let isCountryPhotoSearched = false;
+    let url = `${baseUrl}?key=${key}&image_type=photo&q=${encodeURIComponent(city)}&orientation=vertical`;
     let res = await fetch(url);
     res = await res.json();
     response.data = res.totalHits > 0 ? res.hits[0] : null;
+    if(response.data === null && !isCountryPhotoSearched) { // no photo was returned for the city user selected
+      // search for a any photo of the county
+      isCountryPhotoSearched = true;
+      url = `${baseUrl}?key=${key}&image_type=photo&q=${encodeURIComponent(country)}&orientation=vertical`;
+      res = await fetch(url);
+      res = await res.json();
+      response.data = res.totalHits > 0 ? res.hits[0] : null;
+    }
     response.message = "success";
     return response;
   }
@@ -110,7 +123,7 @@ export const handleSubmit = async (city, date) => {
     }
     tripDate.returnDate = tripDate.returnDate === "" ? tripDate.travelDate : tripDate.returnDate; // defualt return date to same date as departure date if user does not provide return date
     const weatherData = await getWeatherForcast(weatherbitBaseUrl, cityLocation.lat, cityLocation.lng, tripDate.travelDate, tripDate.returnDate, weatherbitAPIKey, travelDepartureDayCount, tripDate.duration);
-    const photoOfCityData = await getPhotoOfCity(pixabayBaseUrl, pixabayAPIKey, city);
+    const photoOfCityData = await getPhotoOfCity(pixabayBaseUrl, pixabayAPIKey, city, cityLocation.data.countryName);
 
     // updating the ui
     let dayOfDepartureWeather = { high_temp: '', low_temp: '', weather: { description: '' } };
@@ -120,45 +133,30 @@ export const handleSubmit = async (city, date) => {
     else {
       dayOfDepartureWeather = weatherData.data[weatherData.departureDay];
     }
-    let timeToDepartureText = travelDepartureDayCount === 0 ? "today," :  travelDepartureDayCount + (travelDepartureDayCount === 1 ? " day" : " days") + " away,";
     const cityImage = photoOfCityData.data !== null ? photoOfCityData.data.webformatURL : noCityPicture;
 
-    let tripDurationHtml  = "";
-    let tripDurationStartingToday = getDatesDifferenceInDays(today, tripDate.returnDate);
-    if(tripDurationStartingToday === 0) {
-      tripDurationHtml = `
-      <div class="tripDuration">and I will be spending few hours there.</span></div>
-      <div class="subHeading">I will also return today</div>`;
+    // prepare the travel plan data to added to the project data
+    const plan = {
+      id: Date.now(),
+      ...tripDate,
+      location: {
+        city: cityLocation.data.name,
+        country : cityLocation.data.countryName,
+        lat: cityLocation.lat,
+        lng: cityLocation.lng,
+        image: cityImage
+      },
+      weather: {
+        high_temp: dayOfDepartureWeather.high_temp,
+        low_temp: dayOfDepartureWeather.low_temp,
+        decription: dayOfDepartureWeather.weather.description
+      }
     }
-    else {
-      tripDurationHtml = `
-      <div class="tripDuration">and I will be spending ${tripDate.duration === "" ? 1 : tripDate.duration} ${tripDate.duration === "" || parseInt(tripDate.duration) === 1 ? "day" : "days"} there</div>
-      <div class="subHeading returnPeriod">I will be returning on ${tripDate.returnDate} <span class="tripEndsIn">(${tripDurationStartingToday === 1 ? "tomorrow" : "in " + tripDurationStartingToday + " days time"})</span></div>
-      `;
-    }
-    let html = `<div class="tripInfoContainer">
-    <div class="cityPictureContainer">
-      <img class="cityPicture" id="cityPicture" src="${cityImage}">
-    </div>
-    <div class="tripDetailContainer">
-      <div class="location heading">My trip to: <span id="tripLocation">${cityLocation.data.name}, ${cityLocation.data.countryName}</span></div>
-      <div class="departureDate heading">Departing: <span id="tripDepartureDate">${tripDate.travelDate}</span></div>
-      <div class="actionButtonContainer">
-        <button type="button" class="saveTrip" id="saveTrip" name="saveTrip" aria-label="Save trip">save trip</button>
-        <button type="button" class="removeTrip" id="removeTrip" name="removeTrip" aria-label="Remove trip">remove trip</button>
-      </div>
-      <div class="tripLoc2Container">My trip to <span id="tripLocation2">${cityLocation.data.name}, ${cityLocation.data.countryName}</span> is <span class="duration">${timeToDepartureText}</span></div>
-      <div class="tripDurationContainer">
-        ${tripDurationHtml}
-      </div>
-      <div class="weatherInfoContainer">
-        <div class="subHeading">Typical weather for then is:</div>
-        <div class="temp">High - <span id="highTemp">${dayOfDepartureWeather.high_temp}</span> Low - <span id="lowTemp">${dayOfDepartureWeather.low_temp}</span></div>
-        <div id="additionalWeatherInfo"> Mostly ${dayOfDepartureWeather.weather.description} throughout the day.</div>
-      </div>
-    </div>
-  </div>`;
-    document.getElementById("pageContent").innerHTML = html;
+
+    //add the new travel plan to the project data;
+    projectData.travelPlans[plan.id] = plan;
+
+    updateUiWithTravelInfo(projectData.travelPlans);
 
     // console.log("trip dates", tripDate);
     // console.log("City location, ", cityLocation);
@@ -173,49 +171,3 @@ export const handleSubmit = async (city, date) => {
   }
 }
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-// Helper function that gets the users travel duration
-// const getTravelDuration = (startDate, endDate) => {
-//   // To set two dates to two variables 
-//   const date1 = new Date(startDate);
-//   const date2 = new Date(endDate);
-
-//   let Difference_In_Time = date2.getTime() - date1.getTime();
-//   let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-//   return Difference_In_Days;
-// }
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-// Helper function that gets number of days to users departure date
-const getDatesDifferenceInDays = (startDate, endDate) => {
-  const dateObj1 = new Date(startDate);
-  const dateObj2 = new Date(endDate);
-
-  let Difference_In_Time = dateObj2.getTime() - dateObj1.getTime();
-  let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-  return Difference_In_Days;
-}
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-const getTodaysDate = () => {
-  let today = new Date();
-  return today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-}
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-const getTripDate = (tdate) => {
-  const trip = { travelDate: "", returnDate: "", duration: "" };
-  if (tdate === "") {
-    return null;
-  }
-
-  trip.travelDate = tdate;
-  if (tdate.indexOf("to") > 0) {
-    const datesArr = tdate.split(" ");
-    trip.travelDate = datesArr[0];
-    trip.returnDate = datesArr[2];
-    trip.duration = getDatesDifferenceInDays(trip.travelDate, trip.returnDate); // get travel duration
-  }
-  return trip;
-}
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  flatpickr(".date", { mode: "range" });
-})
